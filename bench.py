@@ -14,7 +14,8 @@ import pandas as realpd
 
 # The original taxicab CSV is about 70MB; both Modin and Pandas can do ops on a 250 GB frame but Pandas cannot transpose a 6GB frame efficiently
 # Multiplying by 100 puts us at about 7GB
-dup_counts = [1, 3, 10, 50, 100, 500]
+#dup_counts = [1, 3, 10, 50, 100, 500]
+dup_counts = [1, 3, 10, 50, 70]
 filenames = [(f"dup_{i}_" if i != 1 else "") + "fhv_tripdata_2021-07.csv" for i in dup_counts]
 for i, fn in zip(dup_counts, filenames):
     if not os.path.exists(fn):
