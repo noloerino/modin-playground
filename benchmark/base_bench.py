@@ -29,7 +29,6 @@ class BaseBenchmark:
             if not os.path.exists(fn):
                 os.system(f"./repeat_csv.sh fhv_tripdata_2021-07.csv {i}")
 
-
     def _do_read_csv(self, file):
         df = self._lib.read_csv(file)
         # Force computation

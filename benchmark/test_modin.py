@@ -17,3 +17,12 @@ class TestBenchmarkModin(BaseBenchmark):
     @pytest.mark.parametrize("file", test_files)
     def test_modin_fast_order(self, benchmark, file):
         benchmark(self._do_notna_fast_order, file)
+
+
+if __name__ == "__main__":
+    import modin.pandas as pd
+    df = pd.read_csv("test")
+    # Force computation
+    df.head()
+    df.tail()
+
