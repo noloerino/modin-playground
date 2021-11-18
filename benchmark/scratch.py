@@ -5,6 +5,7 @@ https://github.com/modin-project/df-bench/blob/master/benchmark/base_bench.py
 
 import os
 import modin.pandas as pd
+import pandas
 import ray
 ray.init()
 
@@ -42,24 +43,55 @@ class Scratch:
         dolocation = t1[c_DOLocation]
         return t1[dolocation.notna()]
 
+def reference():
+    df = pandas.read_csv(test_files[0])
+    dolocation = df[c_DOLocation]
+    do_notna_mask = dolocation.notna()
+    t1 = df[do_notna_mask]
+    return t1[c_DOLocation]
+    """
+    pulocation = t1[c_PULocation]
+    return t1[pulocation.notna()]
+    """
+
+
 if __name__ == "__main__":
     # TODO read_csv should also be deferable
     df = pd.read_csv(test_files[0])
     dolocation = df[c_DOLocation]
     # print("type(dolocation)=", type(dolocation))
-    print("dolocation..plan=", dolocation._query_compiler._plan)
+    #print("dolocation..plan=", dolocation._query_compiler._plan.pretty_str())
+    print()
     do_notna_mask = dolocation.notna()
-    print("do_notna_mask..plan=", do_notna_mask._query_compiler._plan)
+    #result = do_notna_mask
+    #print("do_notna_mask..plan=", do_notna_mask._query_compiler._plan.pretty_str())
+    print()
     t1 = df[do_notna_mask]
-    print("t1..plan=", t1._query_compiler._plan)
+    """
+    print("t1..plan=", t1._query_compiler._plan.pretty_str())
+    print()
+    """
+    result = t1[c_DOLocation]
+    """
     pulocation = t1[c_PULocation]
-    print("pulocation..plan=", pulocation._query_compiler._plan)
+    print("pulocation..plan=", pulocation._query_compiler._plan.pretty_str())
     pu_notna_mask = pulocation.notna()
-    print("pu_notna_mask..plan=", pu_notna_mask._query_compiler._plan)
+    print("pu_notna_mask..plan=", pu_notna_mask._query_compiler._plan.pretty_str())
+    # TODO consider caching intermediate query compilers? t1 is used to compute pu_notnamask as well
     result = t1[pu_notna_mask]
-    print("result..plan=", result._query_compiler._plan)
+    print("result..plan=", result._query_compiler._plan.pretty_str())
+    """
     print("*** resolving full plan: ***")
     plan = result._query_compiler._plan
     print(plan.pretty_str())
-    print(plan.execute())
+    executed = plan.execute().to_pandas()
+    print()
+    print("*** REFERENCE ***")
+    ref = reference()
+    print(ref.head())
+    print(ref.describe())
+    print()
+    print("*** ACTUAL ***")
+    print(executed.head())
+    print(executed.describe())
 
