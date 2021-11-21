@@ -48,11 +48,8 @@ def reference():
     dolocation = df[c_DOLocation]
     do_notna_mask = dolocation.notna()
     t1 = df[do_notna_mask]
-    return t1[c_DOLocation]
-    """
     pulocation = t1[c_PULocation]
     return t1[pulocation.notna()]
-    """
 
 
 if __name__ == "__main__":
@@ -61,26 +58,19 @@ if __name__ == "__main__":
     dolocation = df[c_DOLocation]
     # print("type(dolocation)=", type(dolocation))
     #print("dolocation..plan=", dolocation._query_compiler._plan.pretty_str())
-    print()
+    #print()
     do_notna_mask = dolocation.notna()
     #result = do_notna_mask
     #print("do_notna_mask..plan=", do_notna_mask._query_compiler._plan.pretty_str())
-    print()
+    #print()
     t1 = df[do_notna_mask]
-    """
-    print("t1..plan=", t1._query_compiler._plan.pretty_str())
-    print()
-    """
-    result = t1[c_DOLocation]
-    """
     pulocation = t1[c_PULocation]
-    print("pulocation..plan=", pulocation._query_compiler._plan.pretty_str())
+    #print("pulocation..plan=", pulocation._query_compiler._plan.pretty_str())
     pu_notna_mask = pulocation.notna()
-    print("pu_notna_mask..plan=", pu_notna_mask._query_compiler._plan.pretty_str())
+    #print("pu_notna_mask..plan=", pu_notna_mask._query_compiler._plan.pretty_str())
     # TODO consider caching intermediate query compilers? t1 is used to compute pu_notnamask as well
     result = t1[pu_notna_mask]
-    print("result..plan=", result._query_compiler._plan.pretty_str())
-    """
+    #print("result..plan=", result._query_compiler._plan.pretty_str())
     print("*** resolving full plan: ***")
     plan = result._query_compiler._plan
     print(plan.pretty_str())
