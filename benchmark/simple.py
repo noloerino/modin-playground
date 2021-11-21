@@ -5,6 +5,7 @@ https://github.com/modin-project/df-bench/blob/master/benchmark/base_bench.py
 
 import os
 import modin.pandas as pd
+from modin.core.storage_formats.pandas import run_compute_stats
 import numpy as np
 import pandas
 import ray
@@ -18,6 +19,9 @@ def reference():
 
 if __name__ == "__main__":
     df = pd.DataFrame({"c1": [0, 1, 2, 3, 4], "c2": [np.nan, np.nan, 1, 1, 1]})
+
+    run_compute_stats()
+
     col = df["c2"]
     mask = col.notna()
     result = df[mask]
