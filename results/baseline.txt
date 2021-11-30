@@ -1,0 +1,41 @@
+============================= test session starts ==============================
+platform linux -- Python 3.9.7, pytest-6.2.5, py-1.10.0, pluggy-1.0.0
+benchmark: 3.4.1 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /home/jhshi/code/cs262a/modin-playground
+plugins: anyio-3.3.2, benchmark-3.4.1
+collected 5 items / 3 deselected / 2 selected
+
+benchmark/test_modin.py ..                                               [100%]
+
+=============================== warnings summary ===============================
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1327: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1328: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1333: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1353: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1355: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1360: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1361: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1362: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1363: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1364: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1365: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1366: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1367: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1368: 1 warning
+../../../.local/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1389: 1 warning
+  DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+  Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+
+------------------------------------------------------------------------------------------------- benchmark: 2 tests ------------------------------------------------------------------------------------------------
+Name (time in s)                                              Min               Max              Mean            StdDev            Median               IQR            Outliers     OPS            Rounds  Iterations
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_modin_fast_order[dup_10_fhv_tripdata_2021-07.csv]     5.8129 (1.0)      5.8483 (1.0)      5.8233 (1.0)      0.0144 (1.0)      5.8166 (1.0)      0.0135 (1.0)           1;0  0.1717 (1.0)           5           1
+test_modin_slow_order[dup_10_fhv_tripdata_2021-07.csv]     7.8544 (1.35)     7.9011 (1.35)     7.8802 (1.35)     0.0227 (1.58)     7.8866 (1.36)     0.0439 (3.26)          1;0  0.1269 (0.74)          5           1
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+=========== 2 passed, 3 deselected, 15 warnings in 100.65s (0:01:40) ===========

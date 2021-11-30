@@ -1,0 +1,41 @@
+============================= test session starts ==============================
+platform linux -- Python 3.9.7, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
+benchmark: 3.4.1 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /home/jhshi/code/cs262a/modin-playground
+plugins: benchmark-3.4.1
+collected 5 items / 3 deselected / 2 selected
+
+benchmark/test_modin.py ..                                               [100%]
+
+=============================== warnings summary ===============================
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1319: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1320: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1325: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1345: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1347: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1352: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1353: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1354: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1355: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1356: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1357: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1358: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1359: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1360: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1381: 1 warning
+  DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+  Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+
+--------------------------------------------------------------------------------------------------- benchmark: 2 tests --------------------------------------------------------------------------------------------------
+Name (time in s)                                               Min                Max               Mean            StdDev             Median               IQR            Outliers     OPS            Rounds  Iterations
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_modin_fast_order[dup_10_fhv_tripdata_2021-07.csv]     10.0881 (1.0)      11.4008 (1.0)      10.4527 (1.0)      0.5446 (3.29)     10.3324 (1.0)      0.5206 (2.29)          1;1  0.0957 (1.0)           5           1
+test_modin_slow_order[dup_10_fhv_tripdata_2021-07.csv]     13.3894 (1.33)     13.7971 (1.21)     13.5438 (1.30)     0.1654 (1.0)      13.5633 (1.31)     0.2275 (1.0)           1;0  0.0738 (0.77)          5           1
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+=========== 2 passed, 3 deselected, 15 warnings in 171.71s (0:02:51) ===========

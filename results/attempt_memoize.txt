@@ -1,0 +1,8 @@
+============================= test session starts ==============================
+platform linux -- Python 3.9.7, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
+benchmark: 3.4.1 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /home/jhshi/code/cs262a/modin-playground
+plugins: benchmark-3.4.1, profiling-1.7.0
+collected 5 items / 3 deselected / 2 selected
+
+benchmark/test_modin.py .
