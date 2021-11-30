@@ -36,7 +36,9 @@ clean_install() {
     deactivate
 }
 
-clean_install
+if [ ! -d "$BVENV" ] || [ ! -d "$OVENV" ]; then
+    clean_install
+fi
 
 TESTFLAGS=""
 #TESTFLAGS="--profile-svg"
