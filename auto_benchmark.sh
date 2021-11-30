@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Automatically sets up environments and runs benchmarks for modin.
 
+# sudo yum install git -y
+
 STARTDIR="$PWD"
 cd ..
 if [ ! -d "modin" ]; then

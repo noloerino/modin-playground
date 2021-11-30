@@ -12,11 +12,11 @@ class TestBenchmarkPandas(BaseBenchmark):
 
     @pytest.mark.parametrize("dup_count", [1, 3])
     def test_pandas_slow_order(self, benchmark, dup_count):
-        benchmark(self._do_notna_slow_order, self._make_file(dup_count, TAXI_CSV))
+        benchmark(self._do_notna_slow_order, self._make_file(TAXI_CSV, dup_count))
 
     @pytest.mark.parametrize("dup_count", [1, 3])
     def test_pandas_fast_order(self, benchmark, dup_count):
-        benchmark(self._do_notna_fast_order, self._make_file(dup_count, TAXI_CSV))
+        benchmark(self._do_notna_fast_order, self._make_file(TAXI_CSV, dup_count))
 
     @pytest.mark.parametrize("dup_count", [1, 3, 5])
     def test_pandas_ij_slow_order(self, benchmark, dup_count):

@@ -34,6 +34,8 @@ class BaseBenchmark:
     #             os.system(f"./repeat_csv.sh fhv_tripdata_2021-07.csv {i}")
 
     def _make_file(self, base_file, dup_count):
+        assert isinstance(base_file, str)
+        assert isinstance(dup_count, int)
         if dup_count == 1:
             fn = base_file
         else:
