@@ -53,6 +53,16 @@ def reference():
 
 
 if __name__ == "__main__":
+    df = pd.read_csv(test_files[2])
+    pulocation = df[c_PULocation]
+    t1 = df[pulocation.notna()]
+    dolocation = t1[c_DOLocation]
+    result = t1[dolocation.notna()]
+    #result.describe()
+    print(result._query_compiler._plan)
+    d = result._query_compiler._plan.execute_to_pandas().describe()
+    print(d)
+    """
     # TODO read_csv should also be deferable
     df = pd.read_csv(test_files[0])
     dolocation = df[c_DOLocation]
@@ -84,4 +94,5 @@ if __name__ == "__main__":
     print("*** ACTUAL ***")
     print(executed.head())
     print(executed.describe())
+    """
 
