@@ -18,7 +18,7 @@ MOVIES_CSV = "tmdb_5000_movies.csv"
 
 def dup_counts(k):
     return {
-        "taxi": [1, 3, 5, 10, 15, 20, 35, 50] if pytest.conf["big"] else [1],
+        "taxi": [1, 3, 5, 10, 15, 20, 35] if pytest.conf["big"] else [1],
         "movie": [1, 3, 5, 10, 20, 30, 40, 50] if pytest.conf["big"] else [1, 3],
     }[k]
 
