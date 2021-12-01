@@ -40,17 +40,11 @@ if [ ! -d "$BVENV" ] || [ ! -d "$OVENV" ]; then
     clean_install
 fi
 
-TESTFLAGS=""
+TESTFLAGS="--big"
 #TESTFLAGS="--profile-svg"
 
 RESULTDIR="b_results/"
 mkdir -p "$RESULTDIR"
-
-bench() {
-    source "$1/bin/activate"
-    pytest -k test_modin $TESTFLAGS | tee "$RESULTDIR/$1_results.txt"
-    deactivate
-}
 
 echo "*** Running pandas benchmarks ***"
 source "$BVENV/bin/activate"
@@ -58,9 +52,18 @@ pytest -k test_pandas | tee "$RESULTDIR/pandas_results.txt"
 deactivate
 
 echo "*** Running baseline benchmarks ***"
-bench "$BVENV"
+source "$BVENV/bin/activate"
+pytest -k test_modin $TESTFLAGS | tee "$RESULTDIR/baseline_results.txt"
+deactivate
 
-echo "*** Running our benchmarks ***"
-bench "$OVENV"
+echo "*** Running benchmarks w/o stats ***"
+source "$OVENV/bin/activate"
+pytest -k test_modin --nostats $TESTFLAGS | tee "$RESULTDIR/nostats_results.txt"
+deactivate
+
+echo "*** Running benchmarks with stats ***"
+source "$OVENV/bin/activate"
+pytest -k test_modin $TESTFLAGS | tee "$RESULTDIR/withstats_results.txt"
+deactivate
 
 echo "*** Done ***"
