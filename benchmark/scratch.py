@@ -53,15 +53,43 @@ def reference():
 
 
 if __name__ == "__main__":
+
+    import modin.pandas as pd
+    from modin.core.storage_formats.pandas import stats_manager
+    df1 = pd.DataFrame({"k": [1, 2, 3], "v": [4, 1, 1]})
+    #df2 = pd.DataFrame({"k": [3, 1, 2], "j": [0, -1, 4]})
+    m = df1
+    m = m[m["k"] < 5]
+    m = m[m["v"] < 0]
+    
+    stats_manager.compute_all()
+    
+    print(stats_manager.get_all())
+
+    
+    print("original:", m._plan.pretty_str())
+    print(m._plan.execute(clean=True))
+    print("optimized:", m._plan.optimize().pretty_str())
+    print(m._plan.optimize().execute(clean=True))
+    
+#     m = df1
+#     m = m[m["v"] == 4]
+#     m = m[m["k"] < 2]
+#     print("goal:", m._plan.pretty_str())
+    
+    stats_manager.clear_all()
+
+    """
     df = pd.read_csv(test_files[2])
     pulocation = df[c_PULocation]
     t1 = df[pulocation.notna()]
     dolocation = t1[c_DOLocation]
     result = t1[dolocation.notna()]
     #result.describe()
-    print(result._query_compiler._plan)
+    print(result._query_compiler._plan.pretty_str())
     d = result._query_compiler._plan.execute_to_pandas().describe()
     print(d)
+    """
     """
     # TODO read_csv should also be deferable
     df = pd.read_csv(test_files[0])
