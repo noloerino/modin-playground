@@ -48,7 +48,7 @@ mkdir -p "$RESULTDIR"
 
 echo "*** Running pandas benchmarks ***"
 source "$BVENV/bin/activate"
-pytest -k test_pandas | tee "$RESULTDIR/pandas_results.txt"
+pytest -k test_pandas $TESTFLAGS | tee "$RESULTDIR/pandas_results.txt"
 deactivate
 
 echo "*** Running baseline benchmarks ***"
