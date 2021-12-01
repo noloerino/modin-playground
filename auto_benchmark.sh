@@ -51,18 +51,24 @@ source "$BVENV/bin/activate"
 pytest -k test_pandas $TESTFLAGS | tee "$RESULTDIR/pandas_results.txt"
 deactivate
 
+rm -rf /tmp/ray
 echo "*** Running baseline benchmarks ***"
 source "$BVENV/bin/activate"
+ray stop --force
 pytest -k test_modin $TESTFLAGS | tee "$RESULTDIR/baseline_results.txt"
 deactivate
 
+rm -rf /tmp/ray
 echo "*** Running benchmarks w/o stats ***"
 source "$OVENV/bin/activate"
+ray stop --force
 pytest -k test_modin --nostats $TESTFLAGS | tee "$RESULTDIR/nostats_results.txt"
 deactivate
 
+rm -rf /tmp/ray
 echo "*** Running benchmarks with stats ***"
 source "$OVENV/bin/activate"
+ray stop --force
 pytest -k test_modin $TESTFLAGS | tee "$RESULTDIR/withstats_results.txt"
 deactivate
 

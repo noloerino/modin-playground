@@ -1,0 +1,51 @@
+============================= test session starts ==============================
+platform linux -- Python 3.7.10, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
+benchmark: 3.4.1 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /home/ec2-user/modin-playground
+plugins: benchmark-3.4.1, profiling-1.7.0
+collected 36 items / 24 deselected / 12 selected
+
+benchmark/test_modin.py ............                                     [100%]
+
+=============================== warnings summary ===============================
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1319: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1320: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1325: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1345: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1347: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1352: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1353: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1354: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1355: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1356: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1357: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1358: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1359: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1360: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1381: 1 warning
+  DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+  Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+
+---------------------------------------------------------------------------------------------------------------------------- benchmark: 12 tests ----------------------------------------------------------------------------------------------------------------------------
+Name (time in ns)                                  Min                            Max                           Mean                      StdDev                         Median                         IQR            Outliers             OPS            Rounds  Iterations
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_modin_compute_stats[3]                   263.0004 (1.0)               1,184.0002 (1.46)                466.6002 (1.21)             401.7073 (1.77)                297.9996 (1.06)             269.2495 (1.75)          1;1  2,143,162.1624 (0.83)          5           1
+test_modin_compute_stats[10]                  267.9990 (1.02)                809.9996 (1.0)                 385.7993 (1.0)              237.3895 (1.05)                280.9993 (1.0)              153.5000 (1.0)           1;1  2,592,021.3917 (1.0)           5           1
+test_modin_compute_stats[1]                   281.9997 (1.07)                877.0003 (1.08)                411.4005 (1.07)             260.5652 (1.15)                293.0010 (1.04)             167.4989 (1.09)          1;1  2,430,721.5813 (0.94)          5           1
+test_modin_compute_stats[5]                   285.9997 (1.09)                816.0005 (1.01)                412.3998 (1.07)             226.6306 (1.0)                 310.9999 (1.11)             163.2488 (1.06)          1;1  2,424,831.3063 (0.94)          5           1
+test_modin_comp_fast_order[1]       1,782,831,085.0000 (>1000.0)   1,801,952,494.0000 (>1000.0)   1,792,524,162.4000 (>1000.0)    6,808,149.2306 (>1000.0)   1,792,132,694.0004 (>1000.0)    6,348,494.9997 (>1000.0)       2;0          0.5579 (0.00)          5           1
+test_modin_comp_slow_order[1]       2,084,011,398.9998 (>1000.0)   2,122,066,013.0002 (>1000.0)   2,104,829,795.3999 (>1000.0)   16,774,826.8639 (>1000.0)   2,101,136,846.9999 (>1000.0)   29,497,595.5001 (>1000.0)       3;0          0.4751 (0.00)          5           1
+test_modin_comp_fast_order[3]       5,402,232,806.0000 (>1000.0)   6,216,814,911.9998 (>1000.0)   5,586,020,146.5999 (>1000.0)  353,010,218.4279 (>1000.0)   5,432,813,676.0005 (>1000.0)  216,778,523.7496 (>1000.0)       1;1          0.1790 (0.00)          5           1
+test_modin_comp_slow_order[3]       6,213,254,577.9996 (>1000.0)   6,478,481,809.9997 (>1000.0)   6,331,772,791.3998 (>1000.0)  129,738,244.1330 (>1000.0)   6,268,558,226.0001 (>1000.0)  241,069,785.2504 (>1000.0)       2;0          0.1579 (0.00)          5           1
+test_modin_comp_fast_order[5]       9,456,380,385.0006 (>1000.0)   9,688,776,867.9999 (>1000.0)   9,528,215,594.6001 (>1000.0)   93,622,062.0866 (>1000.0)   9,486,472,951.0000 (>1000.0)   95,957,007.9999 (>1000.0)       1;0          0.1050 (0.00)          5           1
+test_modin_comp_slow_order[5]      10,722,265,323.0001 (>1000.0)  10,764,883,688.9994 (>1000.0)  10,744,054,558.7999 (>1000.0)   16,941,887.7502 (>1000.0)  10,743,209,829.0001 (>1000.0)   26,988,224.2496 (>1000.0)       2;0          0.0931 (0.00)          5           1
+test_modin_comp_fast_order[10]     19,538,870,657.0002 (>1000.0)  20,305,053,600.9996 (>1000.0)  19,907,481,303.0003 (>1000.0)  289,913,044.0321 (>1000.0)  19,897,049,750.0013 (>1000.0)  408,865,279.2500 (>1000.0)       2;0          0.0502 (0.00)          5           1
+test_modin_comp_slow_order[10]     21,954,300,743.9997 (>1000.0)  22,794,212,126.9998 (>1000.0)  22,351,615,338.8000 (>1000.0)  319,040,627.5737 (>1000.0)  22,279,819,940.9999 (>1000.0)  442,092,437.2498 (>1000.0)       2;0          0.0447 (0.00)          5           1
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+========= 12 passed, 24 deselected, 15 warnings in 1056.29s (0:17:36) ==========

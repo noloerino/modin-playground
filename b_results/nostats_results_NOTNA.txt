@@ -1,0 +1,47 @@
+============================= test session starts ==============================
+platform linux -- Python 3.7.10, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
+benchmark: 3.4.1 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /home/ec2-user/modin-playground
+plugins: benchmark-3.4.1, profiling-1.7.0
+collected 36 items / 28 deselected / 8 selected
+
+benchmark/test_modin.py ........                                         [100%]
+
+=============================== warnings summary ===============================
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1319: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1320: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1325: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1345: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1347: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1352: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1353: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1354: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1355: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1356: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1357: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1358: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1359: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1360: 1 warning
+../modin/modin/core/storage_formats/pandas/query_compiler.py:1381: 1 warning
+  DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+  Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+
+--------------------------------------------------------------------------------------- benchmark: 8 tests ---------------------------------------------------------------------------------------
+Name (time in s)                        Min                Max               Mean            StdDev             Median               IQR            Outliers     OPS            Rounds  Iterations
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_modin_notna_fast_order[1]       1.6206 (1.0)       1.6467 (1.0)       1.6325 (1.0)      0.0113 (1.61)      1.6366 (1.0)      0.0190 (1.91)          3;0  0.6125 (1.0)           5           1
+test_modin_notna_slow_order[1]       2.4184 (1.49)      2.4360 (1.48)      2.4253 (1.49)     0.0070 (1.0)       2.4251 (1.48)     0.0100 (1.0)           1;0  0.4123 (0.67)          5           1
+test_modin_notna_fast_order[3]       4.7340 (2.92)      5.7006 (3.46)      5.0136 (3.07)     0.3899 (55.43)     4.8883 (2.99)     0.2948 (29.62)         1;1  0.1995 (0.33)          5           1
+test_modin_notna_slow_order[3]       7.2373 (4.47)      7.3102 (4.44)      7.2567 (4.45)     0.0302 (4.29)      7.2461 (4.43)     0.0227 (2.28)          1;1  0.1378 (0.22)          5           1
+test_modin_notna_fast_order[5]       8.1702 (5.04)      8.6710 (5.27)      8.4507 (5.18)     0.1943 (27.63)     8.4364 (5.15)     0.2784 (27.98)         2;0  0.1183 (0.19)          5           1
+test_modin_notna_slow_order[5]      12.2719 (7.57)     12.4747 (7.58)     12.4074 (7.60)     0.0802 (11.41)    12.4429 (7.60)     0.0852 (8.56)          1;0  0.0806 (0.13)          5           1
+test_modin_notna_fast_order[10]     16.8531 (10.40)    17.7528 (10.78)    17.2949 (10.59)    0.4133 (58.76)    17.4710 (10.68)    0.7326 (73.62)         3;0  0.0578 (0.09)          5           1
+test_modin_notna_slow_order[10]     24.9866 (15.42)    25.5557 (15.52)    25.2874 (15.49)    0.2695 (38.32)    25.4050 (15.52)    0.4951 (49.75)         2;0  0.0395 (0.06)          5           1
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+========== 8 passed, 28 deselected, 15 warnings in 565.18s (0:09:25) ===========
