@@ -10,6 +10,7 @@ import pytest
 
 # Original csv is about 70 MB
 TAXI_CSV = "fhv_tripdata_2021-07.csv"
+# TAXI_CSV = "smaller_tripdata.csv"
 
 # 39 MB
 CREDITS_CSV = "tmdb_5000_credits.csv"
@@ -17,8 +18,8 @@ CREDITS_CSV = "tmdb_5000_credits.csv"
 MOVIES_CSV = "tmdb_5000_movies.csv"
 
 def dup_counts(k):
-    return {
-        "taxi": [1, 3, 5, 10, 15] if pytest.conf["big"] else [1],
+    return {,
+        "taxi": [1, 2, 3, 5, 10] if pytest.conf["big"] else [1],
         "movie": [1, 3, 5, 10, 20, 30, 40, 50] if pytest.conf["big"] else [1, 3],
     }[k]
 

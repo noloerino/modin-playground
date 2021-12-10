@@ -1,28 +1,28 @@
 ============================= test session starts ==============================
-platform linux -- Python 3.7.10, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
+platform darwin -- Python 3.9.2, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
 benchmark: 3.4.1 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
-rootdir: /home/ec2-user/modin-playground
+rootdir: /Users/cece/262/modin-playground
 plugins: benchmark-3.4.1, profiling-1.7.0
 collected 45 items / 25 deselected / 20 selected
 
 benchmark/test_pandas.py ....................                            [100%]
 
 =============================== warnings summary ===============================
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1327: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1328: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1333: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1353: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1355: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1360: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1361: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1362: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1363: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1364: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1365: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1366: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1367: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1368: 1 warning
-baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler.py:1389: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1327: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1328: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1333: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1353: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1355: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1360: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1361: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1362: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1363: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1364: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1365: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1366: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1367: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1368: 1 warning
+baseline_venv/lib/python3.9/site-packages/modin/backends/pandas/query_compiler.py:1389: 1 warning
   DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
   Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
 
@@ -31,29 +31,29 @@ baseline_venv/lib64/python3.7/site-packages/modin/backends/pandas/query_compiler
 --------------------------------------------------------------------------------------- benchmark: 20 tests ---------------------------------------------------------------------------------------
 Name (time in s)                         Min                Max               Mean            StdDev             Median               IQR            Outliers     OPS            Rounds  Iterations
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-test_pandas_notna_fast_order[1]       1.3918 (1.0)       1.4158 (1.0)       1.4047 (1.0)      0.0117 (2.32)      1.4087 (1.0)      0.0223 (2.51)          2;0  0.7119 (1.0)           5           1
-test_pandas_comp_fast_order[1]        1.4016 (1.01)      1.4169 (1.00)      1.4105 (1.00)     0.0070 (1.39)      1.4144 (1.00)     0.0121 (1.36)          1;0  0.7090 (1.00)          5           1
-test_pandas_notna_slow_order[1]       1.4412 (1.04)      1.4801 (1.05)      1.4521 (1.03)     0.0160 (3.18)      1.4472 (1.03)     0.0149 (1.68)          1;1  0.6887 (0.97)          5           1
-test_pandas_comp_slow_order[1]        1.4881 (1.07)      1.4996 (1.06)      1.4938 (1.06)     0.0050 (1.0)       1.4952 (1.06)     0.0089 (1.0)           2;0  0.6694 (0.94)          5           1
-test_pandas_notna_slow_order[3]       4.2417 (3.05)      4.3560 (3.08)      4.2928 (3.06)     0.0448 (8.89)      4.2816 (3.04)     0.0668 (7.52)          2;0  0.2330 (0.33)          5           1
-test_pandas_comp_fast_order[3]        4.2800 (3.08)      4.3520 (3.07)      4.3165 (3.07)     0.0268 (5.31)      4.3218 (3.07)     0.0341 (3.84)          2;0  0.2317 (0.33)          5           1
-test_pandas_notna_fast_order[3]       4.3275 (3.11)      4.4022 (3.11)      4.3618 (3.11)     0.0273 (5.41)      4.3608 (3.10)     0.0316 (3.55)          2;0  0.2293 (0.32)          5           1
-test_pandas_comp_slow_order[3]        4.4174 (3.17)      4.4982 (3.18)      4.4621 (3.18)     0.0295 (5.86)      4.4621 (3.17)     0.0333 (3.75)          2;0  0.2241 (0.31)          5           1
-test_pandas_comp_fast_order[5]        6.9685 (5.01)      7.4275 (5.25)      7.1487 (5.09)     0.1734 (34.40)     7.0828 (5.03)     0.1911 (21.51)         2;0  0.1399 (0.20)          5           1
-test_pandas_notna_fast_order[5]       7.2751 (5.23)      7.3947 (5.22)      7.3481 (5.23)     0.0461 (9.15)      7.3586 (5.22)     0.0593 (6.68)          2;0  0.1361 (0.19)          5           1
-test_pandas_comp_slow_order[5]        7.3657 (5.29)      7.4829 (5.29)      7.4082 (5.27)     0.0441 (8.75)      7.3969 (5.25)     0.0371 (4.17)          1;1  0.1350 (0.19)          5           1
-test_pandas_notna_slow_order[5]       7.4605 (5.36)      7.7251 (5.46)      7.5767 (5.39)     0.1251 (24.81)     7.5019 (5.33)     0.2183 (24.56)         1;0  0.1320 (0.19)          5           1
-test_pandas_comp_fast_order[10]      13.9400 (10.02)    14.5777 (10.30)    14.2573 (10.15)    0.2351 (46.63)    14.2818 (10.14)    0.2967 (33.39)         2;0  0.0701 (0.10)          5           1
-test_pandas_comp_slow_order[10]      14.2473 (10.24)    14.7888 (10.45)    14.4731 (10.30)    0.2054 (40.75)    14.4347 (10.25)    0.2667 (30.02)         2;0  0.0691 (0.10)          5           1
-test_pandas_notna_fast_order[10]     14.5092 (10.42)    14.6928 (10.38)    14.6131 (10.40)    0.0718 (14.25)    14.6003 (10.36)    0.1003 (11.29)         2;0  0.0684 (0.10)          5           1
-test_pandas_notna_slow_order[10]     14.9853 (10.77)    15.2006 (10.74)    15.1150 (10.76)    0.0875 (17.35)    15.1288 (10.74)    0.1347 (15.16)         1;0  0.0662 (0.09)          5           1
-test_pandas_notna_fast_order[15]     20.4643 (14.70)    22.0737 (15.59)    21.1522 (15.06)    0.7920 (157.10)   20.7151 (14.70)    1.4497 (163.15)        2;0  0.0473 (0.07)          5           1
-test_pandas_comp_fast_order[15]      20.7577 (14.91)    22.4716 (15.87)    21.6876 (15.44)    0.6199 (122.95)   21.7082 (15.41)    0.6638 (74.71)         2;0  0.0461 (0.06)          5           1
-test_pandas_comp_slow_order[15]      22.1595 (15.92)    22.4564 (15.86)    22.2644 (15.85)    0.1137 (22.55)    22.2229 (15.78)    0.1092 (12.29)         1;0  0.0449 (0.06)          5           1
-test_pandas_notna_slow_order[15]     22.7031 (16.31)    23.3918 (16.52)    23.0521 (16.41)    0.2790 (55.33)    23.0122 (16.34)    0.4554 (51.25)         2;0  0.0434 (0.06)          5           1
+test_pandas_notna_fast_order[1]       1.5371 (1.0)       1.6145 (1.0)       1.5575 (1.0)      0.0322 (1.26)      1.5443 (1.0)      0.0247 (1.0)           1;1  0.6420 (1.0)           5           1
+test_pandas_comp_fast_order[1]        1.5663 (1.02)      1.6810 (1.04)      1.6080 (1.03)     0.0431 (1.69)      1.5970 (1.03)     0.0341 (1.38)          1;1  0.6219 (0.97)          5           1
+test_pandas_comp_slow_order[1]        1.5942 (1.04)      1.6580 (1.03)      1.6267 (1.04)     0.0255 (1.0)       1.6355 (1.06)     0.0386 (1.56)          2;0  0.6148 (0.96)          5           1
+test_pandas_notna_slow_order[1]       1.6799 (1.09)      2.0844 (1.29)      1.8147 (1.17)     0.1560 (6.11)      1.7731 (1.15)     0.1221 (4.93)          1;1  0.5511 (0.86)          5           1
+test_pandas_notna_fast_order[3]       4.5439 (2.96)      4.7006 (2.91)      4.5960 (2.95)     0.0622 (2.44)      4.5812 (2.97)     0.0705 (2.85)          1;0  0.2176 (0.34)          5           1
+test_pandas_comp_fast_order[3]        4.6066 (3.00)      4.7130 (2.92)      4.6592 (2.99)     0.0443 (1.73)      4.6443 (3.01)     0.0722 (2.92)          2;0  0.2146 (0.33)          5           1
+test_pandas_comp_slow_order[3]        4.7120 (3.07)      4.8733 (3.02)      4.7889 (3.07)     0.0595 (2.33)      4.7799 (3.10)     0.0748 (3.02)          2;0  0.2088 (0.33)          5           1
+test_pandas_notna_slow_order[3]       5.7804 (3.76)      6.9196 (4.29)      6.1576 (3.95)     0.4924 (19.30)     5.8749 (3.80)     0.7116 (28.76)         1;0  0.1624 (0.25)          5           1
+test_pandas_notna_fast_order[5]       7.5084 (4.88)      7.7397 (4.79)      7.5860 (4.87)     0.0920 (3.61)      7.5443 (4.89)     0.1036 (4.19)          1;0  0.1318 (0.21)          5           1
+test_pandas_comp_fast_order[5]        7.6475 (4.98)      7.7339 (4.79)      7.6851 (4.93)     0.0357 (1.40)      7.6888 (4.98)     0.0579 (2.34)          2;0  0.1301 (0.20)          5           1
+test_pandas_comp_slow_order[5]        7.9376 (5.16)      8.0472 (4.98)      7.9679 (5.12)     0.0458 (1.79)      7.9518 (5.15)     0.0475 (1.92)          1;0  0.1255 (0.20)          5           1
+test_pandas_notna_slow_order[5]       8.2613 (5.37)      9.7992 (6.07)      8.9089 (5.72)     0.7749 (30.37)     8.4787 (5.49)     1.4382 (58.12)         2;0  0.1122 (0.17)          5           1
+test_pandas_notna_fast_order[10]     14.9741 (9.74)     15.6524 (9.69)     15.3685 (9.87)     0.2466 (9.67)     15.4066 (9.98)     0.2281 (9.22)          2;0  0.0651 (0.10)          5           1
+test_pandas_comp_fast_order[10]      15.3309 (9.97)     15.4974 (9.60)     15.3894 (9.88)     0.0654 (2.56)     15.3612 (9.95)     0.0750 (3.03)          1;0  0.0650 (0.10)          5           1
+test_pandas_comp_slow_order[10]      15.7825 (10.27)    15.8745 (9.83)     15.8175 (10.16)    0.0393 (1.54)     15.8047 (10.23)    0.0642 (2.60)          1;0  0.0632 (0.10)          5           1
+test_pandas_notna_slow_order[10]     16.3089 (10.61)    29.4244 (18.22)    20.2437 (13.00)    5.2381 (205.32)   18.6557 (12.08)    4.2116 (170.19)        1;1  0.0494 (0.08)          5           1
+test_pandas_notna_fast_order[15]     22.8948 (14.89)    26.3457 (16.32)    23.6777 (15.20)    1.4939 (58.56)    23.0617 (14.93)    0.9746 (39.39)         1;1  0.0422 (0.07)          5           1
+test_pandas_comp_fast_order[15]      23.7547 (15.45)    25.1910 (15.60)    24.1475 (15.50)    0.5999 (23.51)    23.9051 (15.48)    0.6060 (24.49)         1;0  0.0414 (0.06)          5           1
+test_pandas_notna_slow_order[15]     23.8568 (15.52)    25.2869 (15.66)    24.3740 (15.65)    0.5581 (21.87)    24.1683 (15.65)    0.6656 (26.90)         1;0  0.0410 (0.06)          5           1
+test_pandas_comp_slow_order[15]      23.8570 (15.52)    23.9617 (14.84)    23.9188 (15.36)    0.0402 (1.58)     23.9297 (15.50)    0.0532 (2.15)          2;0  0.0418 (0.07)          5           1
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Legend:
   Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
   OPS: Operations Per Second, computed as 1 / Mean
-========= 20 passed, 25 deselected, 15 warnings in 1401.62s (0:23:21) ==========
+========= 20 passed, 25 deselected, 15 warnings in 1590.33s (0:26:30) ==========

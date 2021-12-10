@@ -4,6 +4,9 @@ from .base_bench import BaseBenchmark, TAXI_CSV, CREDITS_CSV, MOVIES_CSV, dup_co
 import ray
 ray.init()
 
+dataset = "taxi"
+dataset_csv = TAXI_CSV
+
 def _wrap(fn):
     import modin
     if "+" in modin.__version__:
@@ -27,6 +30,16 @@ def _wrap(fn):
     else:
         return fn
 
+def _optimize(plan):
+    def run(*args):
+        return plan.optimize()
+    return run
+
+def _execute(plan):
+    def run(*args):
+        plan.execute()
+    return run
+
 
 class TestBenchmarkModin(BaseBenchmark):
     _lib = modin.pandas
@@ -41,37 +54,37 @@ class TestBenchmarkModin(BaseBenchmark):
         # heterogeneous data
         assert res.shape == ref.shape
     
-    @pytest.mark.parametrize("dup_count", dup_counts("taxi"))
+    @pytest.mark.parametrize("dup_count", dup_counts(dataset))
     def test_modin_notna_slow_order(self, benchmark, dup_count):
-        result = benchmark(_wrap(self._do_notna_slow_order), self._make_file(TAXI_CSV, dup_count))
+        result = benchmark(_wrap(self._do_notna_slow_order), self._make_file(dataset_csv, dup_count))
         # only check correctness for small duplicates
         if dup_count == 1:
-            ref = self.reference(lambda: self._do_notna_slow_order(self._make_file(TAXI_CSV, dup_count)))
+            ref = self.reference(lambda: self._do_notna_slow_order(self._make_file(dataset_csv, dup_count)))
             self.eq_check(result, ref)
 
-    @pytest.mark.parametrize("dup_count", dup_counts("taxi"))
+    @pytest.mark.parametrize("dup_count", dup_counts(dataset))
     def test_modin_notna_fast_order(self, benchmark, dup_count):
-        result = benchmark(_wrap(self._do_notna_fast_order), self._make_file(TAXI_CSV, dup_count))
+        result = benchmark(_wrap(self._do_notna_fast_order), self._make_file(dataset_csv, dup_count))
         # only check correctness for small duplicates
         if dup_count == 1:
-            ref = self.reference(lambda: self._do_notna_fast_order(self._make_file(TAXI_CSV, dup_count)))
+            ref = self.reference(lambda: self._do_notna_fast_order(self._make_file(dataset_csv, dup_count)))
             self.eq_check(result, ref)
             
-    @pytest.mark.parametrize("dup_count", dup_counts("taxi"))
-    def test_modin_comp_slow_order(self, benchmark, dup_count):
-        result = benchmark(_wrap(self._do_comp_slow_order), self._make_file(TAXI_CSV, dup_count))
-        # only check correctness for small duplicates
-        if dup_count == 1:
-            ref = self.reference(lambda: self._do_comp_slow_order(self._make_file(TAXI_CSV, dup_count)))
-            self.eq_check(result, ref)
+    # @pytest.mark.parametrize("dup_count", dup_counts(dataset))
+    # def test_modin_comp_slow_order(self, benchmark, dup_count):
+    #     result = benchmark(_wrap(self._do_comp_slow_order), self._make_file(dataset_csv, dup_count))
+    #     # only check correctness for small duplicates
+    #     if dup_count == 1:
+    #         ref = self.reference(lambda: self._do_comp_slow_order(self._make_file(dataset_csv, dup_count)))
+    #         self.eq_check(result, ref)
     
-    @pytest.mark.parametrize("dup_count", dup_counts("taxi"))
-    def test_modin_comp_fast_order(self, benchmark, dup_count):
-        result = benchmark(_wrap(self._do_comp_fast_order), self._make_file(TAXI_CSV, dup_count))
-        # only check correctness for small duplicates
-        if dup_count == 1:
-            ref = self.reference(lambda: self._do_comp_fast_order(self._make_file(TAXI_CSV, dup_count)))
-            self.eq_check(result, ref)
+    # @pytest.mark.parametrize("dup_count", dup_counts(dataset))
+    # def test_modin_comp_fast_order(self, benchmark, dup_count):
+    #     result = benchmark(_wrap(self._do_comp_fast_order), self._make_file(dataset_csv, dup_count))
+    #     # only check correctness for small duplicates
+    #     if dup_count == 1:
+    #         ref = self.reference(lambda: self._do_comp_fast_order(self._make_file(dataset_csv, dup_count)))
+    #         self.eq_check(result, ref)
 
     # @pytest.mark.parametrize("dup_count", dup_counts("movie"))
     # def test_modin_ij_slow_order(self, benchmark, dup_count):
@@ -89,13 +102,59 @@ class TestBenchmarkModin(BaseBenchmark):
     #         ref = self.reference(lambda: self._do_ij_fast_order(self._make_file(CREDITS_CSV, dup_count), self._make_file(MOVIES_CSV, dup_count)))
     #         self.eq_check(result, ref)
     
-    @pytest.mark.parametrize("dup_count", dup_counts("taxi"))
+    @pytest.mark.parametrize("dup_count", dup_counts(dataset))
     def test_modin_compute_stats(self, benchmark, dup_count):
         import modin
         if "+" in modin.__version__:
             from modin.core.storage_formats.pandas import stats_manager
-            self._do_read_csv(self._make_file(TAXI_CSV, dup_count))
+            self._do_read_csv(self._make_file(dataset_csv, dup_count))
             benchmark(stats_manager.compute_all)
+
+    @pytest.mark.parametrize("dup_count", dup_counts(dataset))
+    def test_modin_optimize_fast_order(self, benchmark, dup_count):
+        import modin
+        if "+" in modin.__version__:
+            from modin.core.storage_formats.pandas import stats_manager
+            plan = self._do_notna_fast_order(self._make_file(dataset_csv, dup_count))._query_compiler._plan
+            if not pytest.conf["nostats"]:
+                stats_manager.compute_all()
+                benchmark(_optimize(plan))
+
+    @pytest.mark.parametrize("dup_count", dup_counts(dataset))
+    def test_modin_optimize_slow_order(self, benchmark, dup_count):
+        import modin
+        if "+" in modin.__version__:
+            from modin.core.storage_formats.pandas import stats_manager
+            plan = self._do_notna_slow_order(self._make_file(dataset_csv, dup_count))._query_compiler._plan
+            if not pytest.conf["nostats"]:
+                stats_manager.compute_all()
+                benchmark(_optimize(plan))
+
+    @pytest.mark.parametrize("dup_count", dup_counts(dataset))
+    def test_modin_execute_fast_order(self, benchmark, dup_count):
+        import modin
+        if "+" in modin.__version__:
+            from modin.core.storage_formats.pandas import stats_manager
+            plan = self._do_notna_fast_order(self._make_file(dataset_csv, dup_count))._query_compiler._plan
+            if not pytest.conf["nostats"]:
+                stats_manager.compute_all()
+                plan = plan.optimize()
+                benchmark(_execute(plan))
+
+    @pytest.mark.parametrize("dup_count", dup_counts(dataset))
+    def test_modin_execute_slow_order(self, benchmark, dup_count):
+        import modin
+        if "+" in modin.__version__:
+            from modin.core.storage_formats.pandas import stats_manager
+            plan = self._do_notna_slow_order(self._make_file(dataset_csv, dup_count))._query_compiler._plan
+            if not pytest.conf["nostats"]:
+                stats_manager.compute_all()
+                plan = plan.optimize()
+                benchmark(_execute(plan))
+
+    
+            
+    
 
 
 if __name__ == "__main__":
