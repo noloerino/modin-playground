@@ -18,7 +18,7 @@ CREDITS_CSV = "tmdb_5000_credits.csv"
 MOVIES_CSV = "tmdb_5000_movies.csv"
 
 def dup_counts(k):
-    return {,
+    return {
         "taxi": [1, 2, 3, 5, 10] if pytest.conf["big"] else [1],
         "movie": [1, 3, 5, 10, 20, 30, 40, 50] if pytest.conf["big"] else [1, 3],
     }[k]

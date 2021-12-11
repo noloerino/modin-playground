@@ -42,19 +42,19 @@ class StatsRunner(object):
             import modin
             if "+" in modin.__version__:
                 from modin.core.storage_formats.pandas import stats_manager
-                # print("starting stats collection thread, stop_stats=", self.stop_stats)
+                print("starting stats collection thread, stop_stats=", self.stop_stats)
                 i = 0
                 while (not self.stop_stats) and stats_manager.has_next():
-                    # print("computing next...", i)
+                    print("computing next...", i, "of", stats_manager.size())
                     stats_manager.compute_next()
-                    # print("compute done", i)
+                    print("compute done", i)
                     i += 1
-                    time.sleep(0) # yield thread: https://stackoverflow.com/questions/787803/
-                # if stats_manager.has_next():
-                #     print("interrupted before finishing yay (finished iter)", i)
-                # else:
-                #     print("ran out of stats to compute")
-                # print("current stats:", stats_manager.get_all())
+                    time.sleep(2) # yield thread: https://stackoverflow.com/questions/787803/
+                if stats_manager.has_next():
+                     print("interrupted before finishing yay (finished iter)", i)
+                else:
+                     print("ran out of stats to compute")
+                print("current stats:", stats_manager.get_all())
         # user_vars = self.shell.ns_table['user_local']
         self.stop_stats = False
         # print("deploying thread")
