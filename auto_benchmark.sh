@@ -57,6 +57,11 @@ do_test() {
     BENCH_JSONDIR="bench_json/$NAME"
     mkdir -p "$BENCH_JSONDIR"
 
+    pytest -k test_double_ \
+        --benchmark-storage="$BENCH_JSONDIR/double" \
+        --benchmark-save="${NAME}" \
+        $FLAGS
+
     pytest -k test_full_ \
         --benchmark-storage="$BENCH_JSONDIR/full" \
         --benchmark-save="${NAME}" \
