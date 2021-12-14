@@ -58,11 +58,14 @@ if __name__ == "__main__":
     from modin.core.storage_formats.pandas import stats_manager
     df1 = pd.DataFrame({"k": [1, 2, 3], "v": [4, 1, 1]})
     #df2 = pd.DataFrame({"k": [3, 1, 2], "j": [0, -1, 4]})
+    stats_manager.compute_all()
+
     m = df1
     m = m[m["k"] < 5]
+    print(m._plan._card_estimates())
     m = m[m["v"] < 0]
+    print(m._plan._card_estimates())
     
-    stats_manager.compute_all()
     
     print(stats_manager.get_all())
 

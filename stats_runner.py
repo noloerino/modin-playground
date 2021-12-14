@@ -5,10 +5,16 @@ from threading import Thread,Lock
 
 # run this command in jupyter notebook to register the callbacks: %load_ext stats_runner
 
+_verbose = False
+
 class StatsRunner(object):
     def __init__(self, ip):
         self.shell = ip
         self.stop_stats = False
+
+    def _log(self, *args):
+        if _verbose:
+            print(*args)
 
     def pre_execute(self):
         # print("pre_execute")
@@ -42,19 +48,19 @@ class StatsRunner(object):
             import modin
             if "+" in modin.__version__:
                 from modin.core.storage_formats.pandas import stats_manager
-                print("starting stats collection thread, stop_stats=", self.stop_stats)
+                self._log("starting stats collection thread, stop_stats=", self.stop_stats)
                 i = 0
                 while (not self.stop_stats) and stats_manager.has_next():
-                    print("computing next...", i, "of", stats_manager.size())
+                    self._log("computing next...", i, "of", stats_manager.size())
                     stats_manager.compute_next()
-                    print("compute done", i)
+                    self._log("compute done", i)
                     i += 1
                     time.sleep(2) # yield thread: https://stackoverflow.com/questions/787803/
                 if stats_manager.has_next():
-                     print("interrupted before finishing yay (finished iter)", i)
+                     self._log("interrupted before finishing yay (finished iter)", i)
                 else:
-                     print("ran out of stats to compute")
-                print("current stats:", stats_manager.get_all())
+                     self._log("ran out of stats to compute")
+                self._log("current stats:", stats_manager.get_all())
         # user_vars = self.shell.ns_table['user_local']
         self.stop_stats = False
         # print("deploying thread")

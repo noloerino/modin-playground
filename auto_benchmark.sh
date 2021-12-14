@@ -9,7 +9,7 @@ if [ ! -d "modin" ]; then
     git clone https://github.com/noloerino/modin.git
 fi
 cd modin
-git reset --hard origin/master
+git pull
 cd "$STARTDIR"
 
 echo "*** Creating virtual environments ***"
@@ -46,30 +46,55 @@ TESTFLAGS="--big"
 RESULTDIR="b_results/"
 mkdir -p "$RESULTDIR"
 
-# echo "*** Running pandas benchmarks ***"
-# source "$BVENV/bin/activate"
-# pytest -k test_pandas $TESTFLAGS | tee "$RESULTDIR/pandas_results.txt"
-# deactivate
+BENCH_CSVDIR="bench_csv/"
+mkdir -p "$BENCH_CSVDIR"
 
-# rm -rf /tmp/ray
-# echo "*** Running baseline benchmarks ***"
-# source "$BVENV/bin/activate"
-# ray stop --force
-# pytest -k test_modin $TESTFLAGS | tee "$RESULTDIR/baseline_results.txt"
-# deactivate
+do_test() {
+    NAME=$1
+    shift 1
+    FLAGS=$@
 
-# rm -rf /tmp/ray
-# echo "*** Running benchmarks w/o stats ***"
-# source "$OVENV/bin/activate"
-# ray stop --force
-# pytest -k test_modin --nostats $TESTFLAGS | tee "$RESULTDIR/nostats_results.txt"
-# deactivate
+    BENCH_JSONDIR="bench_json/$NAME"
+    mkdir -p "$BENCH_JSONDIR"
 
-rm -rf /tmp/ray
+    pytest -k test_full_ \
+        --benchmark-storage="$BENCH_JSONDIR/full" \
+        --benchmark-save="${NAME}" \
+        $FLAGS
+
+    py.test-benchmark --storage="$BENCH_JSONDIR/full" \
+        compare --csv="$BENCH_CSVDIR/${NAME}_test_full"
+
+    if [ "$NAME" != "baseline" ]; then
+        pytest -k test_p_ \
+            --benchmark-storage="$BENCH_JSONDIR/part" \
+            --benchmark-save="${NAME}" \
+            $FLAGS
+
+        py.test-benchmark --storage="$BENCH_JSONDIR/part" \
+            compare --csv="$BENCH_CSVDIR/${NAME}_test_part"
+    fi
+
+}
+
+TESTFLAGS=""
+
+echo "*** Running baseline benchmarks ***"
+source "$BVENV/bin/activate"
+ray stop --force
+do_test baseline $TESTFLAGS
+deactivate
+
+echo "*** Running benchmarks w/o stats ***"
+source "$OVENV/bin/activate"
+ray stop --force
+do_test nostats $TESTFLAGS --nostats
+deactivate
+
 echo "*** Running benchmarks with stats ***"
 source "$OVENV/bin/activate"
 ray stop --force
-pytest -k test_modin $TESTFLAGS | tee "$RESULTDIR/withstats_results.txt"
+do_test withstats $TESTFLAGS
 deactivate
 
 echo "*** Done ***"
