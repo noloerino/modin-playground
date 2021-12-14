@@ -77,8 +77,6 @@ do_test() {
 
 }
 
-TESTFLAGS=""
-
 echo "*** Running baseline benchmarks ***"
 source "$BVENV/bin/activate"
 ray stop --force
