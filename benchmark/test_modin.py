@@ -215,7 +215,7 @@ class TestBenchmarkModinOnce(BaseBenchmark):
         stats_manager.clear_all()
 
     def _do_qp_test(self, qp_fn, benchmark, df_from_csv):
-        self.skip_if_lazy()
+        self.skip_if_not_lazy()
         stats_manager.compute_all()
         benchmark(lambda df: qp_fn(df), df_from_csv)
         stats_manager.clear_all()
