@@ -62,6 +62,9 @@ do_test() {
         --benchmark-save="${NAME}" \
         $FLAGS
 
+    py.test-benchmark --storage="$BENCH_JSONDIR/double" \
+        compare --csv="$BENCH_CSVDIR/${NAME}_test_double"
+
     pytest -k test_full_ \
         --benchmark-storage="$BENCH_JSONDIR/full" \
         --benchmark-save="${NAME}" \
