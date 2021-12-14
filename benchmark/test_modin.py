@@ -25,7 +25,7 @@ if is_lazy_modin:
             qc, input_df = fn(*args)
             if not pytest.conf["nostats"]:
                 stats_manager.compute_all() # optimizations are performed here
-                result = qc.execute()
+                result = qc._plan.optimize().execute()
                 # in order to not interfere with test fixtures, make sure
                 # full tests + test_compute_stats are run independent of other
                 # component tests
